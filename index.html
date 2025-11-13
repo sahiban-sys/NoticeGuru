@@ -46,7 +46,6 @@
 
         /* ------------------------------------- */
         /* ** 1. आधुनिक हेडर (Header) ** */
-        /* (Previous styles remain for coherence) */
         /* ------------------------------------- */
         header {
             background-color: var(--bg-light);
@@ -119,7 +118,6 @@
         
         /* ------------------------------------- */
         /* ** 2. आधुनिक हीरो सेक्शन (Hero Section) ** */
-        /* (Previous styles remain for coherence) */
         /* ------------------------------------- */
         .hero-section {
             padding: 60px 20px;
@@ -164,7 +162,6 @@
 
         /* ------------------------------------- */
         /* ** 3. आधुनिक सूचना कार्ड ** */
-        /* (Previous styles remain for coherence) */
         /* ------------------------------------- */
         .notice-section {
             padding: 40px 20px; 
@@ -205,12 +202,12 @@
         }
         
         /* ------------------------------------- */
-        /* ** 4. न्यूरोमॉर्फिक FAB - मुख्य अपडेट (समाधान किया गया) ** */
+        /* ** 4. न्यूरोमॉर्फिक FAB - मुख्य अपडेट (समाधान) ** */
         /* ------------------------------------- */
 
         .new-fab-container {
             position: fixed;
-            /* FAB को स्क्रीन के निचले-दाएँ कोने में सेट करें */
+            /* ** डेस्कटॉप/डिफ़ॉल्ट सेटिंग्स ** */
             bottom: 30px; 
             right: 30px; 
             left: unset;
@@ -218,7 +215,7 @@
             z-index: 9999; 
             display: flex; 
             align-items: center;
-            flex-direction: row; /* डेस्कटॉप पर साइड-बाय-साइड */
+            flex-direction: row; /* डेस्कटॉप पर साइड-बाय-साइड (Text Left, Button Right) */
         }
         
         /* ** 4.1. Neumorphic Button Style ** */
@@ -290,15 +287,14 @@
             }
         }
 
-        /* ** 4.3. फ्लोटिंग टेक्स्ट अपडेट (समाधान किया गया) ** */
+        /* ** 4.3. फ्लोटिंग टेक्स्ट अपडेट (डेस्कटॉप पर बटन के बाएँ) ** */
         .fab-text {
-            /* Style mostly preserved */
             position: absolute;
             left: unset;
-            right: 100%; /* बटन के बाईं ओर */
+            right: 100%; /* डेस्कटॉप पर बटन के बाईं ओर */
             margin-right: 15px; /* बटन से दूरी */
-            top: unset;
-            transform: none; /* Centering transform हटा दिया गया */
+            top: 50%; /* वर्टिकली सेंटर */
+            transform: translateY(-50%); 
             
             background-color: rgba(220, 53, 69, 0.9); /* Red Alert Background */
             backdrop-filter: blur(5px);
@@ -359,7 +355,7 @@
                 font-size: 28px;
             }
 
-            /* FAB Mobile: Moved to bottom right corner */
+            /* FAB Mobile: बॉटम राइट कॉर्नर और वर्टिकल लेआउट */
             .new-fab-container {
                 right: 10px;
                 bottom: 10px; 
@@ -367,20 +363,27 @@
                 align-items: flex-end; 
                 animation: none;
             }
+            
+            /* मोबाइल पर पल्सिंग रिंग हटा दें */
             .new-fab-container::after {
-                /* Remove pulsing ring on small screens for better performance */
                 content: none;
             }
+            
+            /* फ्लोटिंग टेक्स्ट मोबाइल पर बटन के ऊपर */
             .fab-text {
-                left: unset;
-                right: 0; /* मोबाइल पर राइट से अलाइन */
+                position: static; /* फ्लोटिंग हटाकर नॉर्मल फ्लो में लाएँ */
+                right: 0; /* राइट से अलाइन */
+                top: unset;
                 transform: none;
-                margin-right: 0; /* मेन मार्जिन हटाएँ */
+                margin-right: 0; 
                 margin-bottom: 8px; 
-                width: 250px;
+                width: auto;
+                max-width: 250px;
                 border-left: none;
                 border-right: 5px solid var(--accent-color); /* बॉर्डर को राइट में शिफ्ट करें */
+                text-align: right; /* टेक्स्ट को राइट में अलाइन करें */
             }
+            
             .new-fab-button {
                 width: 150px;
                 height: 50px;
