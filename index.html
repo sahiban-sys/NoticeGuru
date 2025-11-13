@@ -10,6 +10,7 @@
 
   gtag('config', 'G-EMHENK9KCM');
 </script>
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="मैट्रिक से 12वीं तक की परीक्षा सूचना, रिजल्ट, सरकारी वैकेंसी, और करियर गाइडेंस के लिए NoticeGuru।">
@@ -204,20 +205,20 @@
         }
         
         /* ------------------------------------- */
-        /* ** 4. न्यूरोमॉर्फिक FAB - मुख्य अपडेट ** */
+        /* ** 4. न्यूरोमॉर्फिक FAB - मुख्य अपडेट (समाधान किया गया) ** */
         /* ------------------------------------- */
 
         .new-fab-container {
             position: fixed;
-            bottom: 50%;
+            /* FAB को स्क्रीन के निचले-दाएँ कोने में सेट करें */
+            bottom: 30px; 
             right: 30px; 
-            transform: translateY(50%); 
             left: unset;
+            top: unset;
             z-index: 9999; 
             display: flex; 
             align-items: center;
-            /* subtle-float animation removed to prevent conflict with Neumorphic hover */
-            /* animation: subtle-float 4s ease-in-out infinite; */
+            flex-direction: row; /* डेस्कटॉप पर साइड-बाय-साइड */
         }
         
         /* ** 4.1. Neumorphic Button Style ** */
@@ -289,12 +290,16 @@
             }
         }
 
-        /* ** 4.3. फ्लोटिंग टेक्स्ट अपडेट ** */
+        /* ** 4.3. फ्लोटिंग टेक्स्ट अपडेट (समाधान किया गया) ** */
         .fab-text {
-            /* Style mostly preserved, but text changed in JS */
+            /* Style mostly preserved */
             position: absolute;
-            left: calc(100% + 20px); 
-            right: unset; 
+            left: unset;
+            right: 100%; /* बटन के बाईं ओर */
+            margin-right: 15px; /* बटन से दूरी */
+            top: unset;
+            transform: none; /* Centering transform हटा दिया गया */
+            
             background-color: rgba(220, 53, 69, 0.9); /* Red Alert Background */
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
@@ -306,10 +311,8 @@
             white-space: nowrap; 
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
             border-right: none;
-            border-left: 5px solid var(--accent-color); 
+            border-left: 5px solid var(--accent-color); /* लेफ्ट बॉर्डर */
             animation: pulse-border-red 1.5s infinite alternate; 
-            transform: translateY(-50%); 
-            top: 50%;
         }
         
         /* New Pulse Animation for Text Border */
@@ -334,16 +337,33 @@
         }
         
         /* ------------------------------------- */
-        /* ** मोबाइल एडजस्टमेंट (Responsive) ** */
+        /* ** मोबाइल एडजस्टमेंट (Responsive - समाधान किया गया) ** */
         /* ------------------------------------- */
         @media (max-width: 768px) {
+            /* Header */
+            .header-top {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .header-title-area, .header-info {
+                margin-bottom: 10px;
+            }
+            .search-container {
+                margin: 10px 0;
+                max-width: 100%;
+            }
+            .hero-section {
+                padding: 40px 20px;
+            }
+            .hero-section h2 {
+                font-size: 28px;
+            }
+
             /* FAB Mobile: Moved to bottom right corner */
             .new-fab-container {
                 right: 10px;
                 bottom: 10px; 
-                top: unset; 
-                transform: none; 
-                flex-direction: column-reverse; 
+                flex-direction: column-reverse; /* बटन नीचे, टेक्स्ट ऊपर */
                 align-items: flex-end; 
                 animation: none;
             }
@@ -353,17 +373,30 @@
             }
             .fab-text {
                 left: unset;
-                right: 0; 
+                right: 0; /* मोबाइल पर राइट से अलाइन */
                 transform: none;
+                margin-right: 0; /* मेन मार्जिन हटाएँ */
                 margin-bottom: 8px; 
                 width: 250px;
                 border-left: none;
-                border-right: 5px solid var(--accent-color); 
+                border-right: 5px solid var(--accent-color); /* बॉर्डर को राइट में शिफ्ट करें */
             }
             .new-fab-button {
                 width: 150px;
                 height: 50px;
                 font-size: 14px;
+            }
+            
+            .notice-cards-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .shayeri-card, .story-button-container > a {
+                max-width: 100%;
+            }
+            .story-button-container {
+                display: flex;
+                flex-direction: column;
             }
         }
         
@@ -694,7 +727,7 @@
         const guideOverlay = document.getElementById('guideOverlay');
         const guideTooltipStyle = `background-color: white; color: var(--primary-color); padding: 15px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); max-width: 300px; font-size: 15px; text-align: left; z-index: 10000;`;
         const guideButtonPrimaryStyle = `background-color: var(--accent-color); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; margin-top: 10px; font-weight: bold; transition: background-color 0.3s;`;
-        const guideButtonSkipStyle = `background-color: var(--secondary-color); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; margin-top: 10px; font-weight: bold; margin-left: 10px;`;
+        const guideButtonSkipStyle = `background-color: var(--secondary-color); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; margin-top: 10px; margin-left: 10px;`;
 
 
         if(startGuideBtn){
