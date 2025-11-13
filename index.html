@@ -14,321 +14,446 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="मैट्रिक से 12वीं तक की परीक्षा सूचना, रिजल्ट, सरकारी वैकेंसी, और करियर गाइडेंस के लिए NoticeGuru।">
     <meta name="keywords" content="नोटिस गुरु, NoticeGuru, बिहार बोर्ड, UP बोर्ड, सरकारी वैकेंसी, 10वीं, 12वीं, परीक्षा सूचना">
-    <title>NoticeGuru | परीक्षा सूचना और करियर गाइडेंस</title>
+    <title>NoticeGuru | आधुनिक सूचना और करियर गाइडेंस</title>
 
     <style>
+        /* ------------------------------------- */
+        /* ** Global Variables & Base Styling ** */
+        /* ------------------------------------- */
         :root {
-            --primary-color: #303f9f;
-            --secondary-color: #c5cae9;
-            --accent-color: #ff9800;
-            --bg-light: #f4f4f9;
+            --primary-color: #007bff; /* Vibrant Blue */
+            --secondary-color: #6c757d; /* Gray */
+            --accent-color: #ffc107; /* Yellow Accent */
+            --bg-light: #ffffff; /* White background */
+            --bg-dark: #f8f9fa; /* Light Gray */
+            --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.15);
+            
+            /* FAB New Colors - Neumorphism Base */
+            --fab-neumo-color: #f0f0f0; /* Soft gray base */
+            --fab-color-start: #673ab7; 
+            --fab-color-end: #3f51b5; 
         }
 
-        /* 💡 सुधार: मोबाइल पर हेडर को बेहतर बनाने के लिए बेसिक मीडिया क्वेरी */
-        @media (max-width: 650px) {
-            .header-top {
-                flex-direction: column;
-                align-items: center !important;
-            }
-            .search-container {
-                margin: 10px 0 !important;
-                width: 100% !important;
-                max-width: 100% !important; /* मोबाइल पर पूरी चौड़ाई */
-            }
-            .header-info, .header-youtube {
-                margin: 5px 0 !important;
-            }
-            .shayeri-card {
-                max-width: 100% !important; /* मोबाइल पर पूरी चौड़ाई */
-            }
-            /* मोबाइल पर बटनों को स्टैक करने के लिए मार्जिन हटाना */
-            .story-button-container a {
-                display: block !important;
-                margin-top: 10px;
-                margin-left: 0 !important;
-            }
-        }
-        
-        /* नए बटन के लिए स्टाइल */
-        .story-button-container {
-            padding: 20px 20px 40px 20px; /* फ़ुटर से ऊपर पैडिंग बढ़ा दी गई */
-            text-align: center;
-            background-color: var(--bg-light, #f4f4f9); /* पृष्ठभूमि रंग */
-        }
-        
-        .story-button {
-            display: inline-block;
-            color: white;
-            padding: 12px 20px; /* पैडिंग थोड़ी कम की गई ताकि तीन बटन फिट हो सकें */
-            border-radius: 30px;
-            font-size: 15px; /* फ़ॉन्ट साइज़ थोड़ा कम किया गया */
-            font-weight: bold;
-            text-decoration: none;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            transition: background-color 0.3s, transform 0.2s;
-            margin: 5px; /* सभी बटनों के बीच समान स्पेसिंग */
-        }
-        
-        /* पहला बटन: ग्रीन */
-        .story-button.green {
-            background-color: #4CAF50; 
-            border: 2px solid #388E3C;
-        }
-        .story-button.green:hover {
-            background-color: #388E3C;
-            transform: translateY(-2px);
+        body {
+            font-family: 'Poppins', 'Arial', sans-serif;
+            margin: 0;
+            background-color: var(--bg-light);
+            color: #333;
+            line-height: 1.6;
         }
 
-        /* दूसरा बटन: पिंक (मजेदार) */
-        .story-button.pink {
-            background-color: #e91e63; /* गुलाबी */
-            border: 2px solid #ad1457;
-        }
-        .story-button.pink:hover {
-            background-color: #c2185b;
-            transform: translateY(-2px);
-        }
-        
-        /* तीसरा बटन: ब्लू (मोटिवेशनल) */
-        .story-button.blue {
-            background-color: var(--primary-color); /* गहरा नीला */
-            border: 2px solid #1a237e;
-        }
-        .story-button.blue:hover {
-            background-color: #1a237e;
-            transform: translateY(-2px);
-        }
-        
-        /* ** टूर गाइड CSS ** */
-        
-        /* गाइड ओवरले के लिए स्टाइल */
-        .guide-overlay {
-            position: fixed;
+        /* ------------------------------------- */
+        /* ** 1. आधुनिक हेडर (Header) ** */
+        /* (Previous styles remain for coherence) */
+        /* ------------------------------------- */
+        header {
+            background-color: var(--bg-light);
+            padding: 15px 20px;
+            box-shadow: var(--shadow-md);
+            position: sticky;
             top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7); /* हल्का काला बैकग्राउंड */
-            z-index: 9999;
-            display: none; /* डिफ़ॉल्ट रूप से छिपा हुआ */
+            z-index: 1000;
+            transition: all 0.3s ease;
         }
 
-        /* टूलटिप बॉक्स (गाइड पॉपअप) */
-        .guide-tooltip {
-            position: absolute;
-            background-color: white;
-            color: var(--primary-color);
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            max-width: 300px;
-            font-size: 15px;
-            text-align: left;
-            z-index: 10000;
+        .header-top {
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            width: 100%; 
+            max-width: 1200px;
+            margin: 0 auto;
         }
-        .guide-tooltip button {
-            background-color: var(--accent-color);
+
+        .header-title-area {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        header h1 {
+            margin: 0; 
+            font-size: 32px; 
+            color: var(--primary-color);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        
+        header p {
+            margin: 0; 
+            font-size: 14px; 
+            color: var(--secondary-color);
+            margin-top: -5px;
+        }
+
+        .search-container {
+            flex-grow: 1; 
+            max-width: 350px; 
+            margin: 0 20px; 
+            display: flex;
+        } 
+
+        .search-container input {
+            width: 100%; 
+            padding: 10px 18px; 
+            border: 1px solid #ced4da; 
+            border-radius: 25px 0 0 25px; 
+            font-size: 14px; 
+            outline: none; 
+            transition: border-color 0.3s;
+        }
+        
+        .search-container button {
+            background-color: var(--primary-color);
             color: white;
             border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
+            padding: 10px 15px;
+            border-radius: 0 25px 25px 0;
+            font-size: 14px;
             cursor: pointer;
-            margin-top: 10px;
-            font-weight: bold;
             transition: background-color 0.3s;
         }
-        .guide-tooltip button:hover {
-            background-color: #e68900;
-        }
-        .highlight {
-            z-index: 10001; /* हाइलाइट किए गए तत्व को ऊपर लाएँ */
-            position: relative; /* z-index काम करने के लिए */
-            box-shadow: 0 0 0 5px var(--accent-color) !important; /* नारंगी बॉर्डर */
-            transition: box-shadow 0.5s;
-        }
-        /* ** टूर गाइड CSS समाप्त ** */
         
+        /* ------------------------------------- */
+        /* ** 2. आधुनिक हीरो सेक्शन (Hero Section) ** */
+        /* (Previous styles remain for coherence) */
+        /* ------------------------------------- */
+        .hero-section {
+            padding: 60px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #1e3c72, #2a5298, #6a82fb); 
+            background-size: 400% 400%;
+            color: white;
+            animation: gradient-shift 15s ease infinite; 
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero-section h2 {
+            font-size: 36px;
+            margin: 0 0 10px 0;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+        }
+        
+        .hero-button {
+            background-color: var(--accent-color);
+            color: #333;
+            padding: 12px 30px; 
+            border: none; 
+            border-radius: 30px; 
+            font-size: 16px; 
+            cursor: pointer; 
+            font-weight: bold;
+            text-decoration: none; 
+            display: inline-block; 
+            transition: all 0.3s ease-out;
+            box-shadow: 0 6px 15px rgba(255, 193, 7, 0.6);
+            transform: perspective(1px) translateZ(0);
+        }
+        
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* ------------------------------------- */
+        /* ** 3. आधुनिक सूचना कार्ड ** */
+        /* (Previous styles remain for coherence) */
+        /* ------------------------------------- */
+        .notice-section {
+            padding: 40px 20px; 
+            text-align: left;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .notice-section h2 {
+            color: var(--primary-color); 
+            border-bottom: 3px solid var(--accent-color); 
+            padding-bottom: 10px; 
+            display: inline-block; 
+            font-size: 28px;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+        
+        .notice-cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive Grid */
+            gap: 25px;
+        }
+
+        .notice-card {
+            padding: 20px; 
+            border-radius: 12px; 
+            box-shadow: var(--shadow-md); 
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #e9ecef; /* Subtle Border */
+        }
+        
+        .notice-card:hover {
+            box-shadow: var(--shadow-lg); /* Darker shadow on hover */
+            transform: translateY(-5px); /* Lift effect */
+        }
+        
+        /* ------------------------------------- */
+        /* ** 4. न्यूरोमॉर्फिक FAB - मुख्य अपडेट ** */
+        /* ------------------------------------- */
+
+        .new-fab-container {
+            position: fixed;
+            bottom: 50%;
+            right: 30px; 
+            transform: translateY(50%); 
+            left: unset;
+            z-index: 9999; 
+            display: flex; 
+            align-items: center;
+            /* subtle-float animation removed to prevent conflict with Neumorphic hover */
+            /* animation: subtle-float 4s ease-in-out infinite; */
+        }
+        
+        /* ** 4.1. Neumorphic Button Style ** */
+        .new-fab-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 180px; /* फिक्स्ड चौड़ाई */
+            height: 60px; /* फिक्स्ड ऊंचाई */
+            background-color: var(--fab-neumo-color); 
+            color: var(--primary-color);
+            border: none;
+            border-radius: 50px; 
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease-in-out;
+            
+            /* ** न्यूरोमॉर्फिक शैडो इफ़ेक्ट ** */
+            box-shadow: 
+                6px 6px 12px rgba(0, 0, 0, 0.1), /* Darker shadow bottom-right */
+                -6px -6px 12px rgba(255, 255, 255, 0.8), /* Lighter shadow top-left */
+                inset 0 0 0 rgba(0, 0, 0, 0.0); /* Remove default inset */
+        }
+        
+        /* ** Neumorphic Press/Click Effect ** */
+        .new-fab-button:hover {
+            background: linear-gradient(135deg, var(--fab-color-start), var(--fab-color-end)); /* Hover पर ग्रेडिएंट */
+            color: white;
+            box-shadow: 
+                3px 3px 6px rgba(0, 0, 0, 0.15),
+                -3px -3px 6px rgba(255, 255, 255, 0.6);
+            transform: scale(1.05); /* हल्का सा बड़ा हो */
+        }
+        
+        .new-fab-button:active {
+            /* Button Press - Inset Shadow */
+            box-shadow: 
+                inset 3px 3px 7px #b3b3b3, 
+                inset -3px -3px 7px #ffffff;
+            transform: scale(0.98); /* अंदर धँसता हुआ दिखे */
+        }
+
+        /* ** 4.2. पल्सिंग रिंग इफ़ेक्ट (आकर्षण बढ़ाने के लिए) ** */
+        .new-fab-container::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: rgba(255, 193, 7, 0.4); /* Accent Color Pulse */
+            border-radius: 50px;
+            z-index: -1;
+            /* Pulse Animation */
+            animation: pulse-ring 2s infinite cubic-bezier(0.66, 0.0, 0.0, 1.0);
+        }
+        
+        /* Pulse Animation Keyframes */
+        @keyframes pulse-ring {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        /* ** 4.3. फ्लोटिंग टेक्स्ट अपडेट ** */
+        .fab-text {
+            /* Style mostly preserved, but text changed in JS */
+            position: absolute;
+            left: calc(100% + 20px); 
+            right: unset; 
+            background-color: rgba(220, 53, 69, 0.9); /* Red Alert Background */
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            color: white;
+            padding: 12px 18px;
+            border-radius: 12px; 
+            font-size: 15px;
+            font-weight: 700;
+            white-space: nowrap; 
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+            border-right: none;
+            border-left: 5px solid var(--accent-color); 
+            animation: pulse-border-red 1.5s infinite alternate; 
+            transform: translateY(-50%); 
+            top: 50%;
+        }
+        
+        /* New Pulse Animation for Text Border */
+        @keyframes pulse-border-red {
+            0% { border-left-color: var(--accent-color); }
+            100% { border-left-color: #ff9800; }
+        }
+
+        .new-label {
+            font-size: 12px;
+            font-weight: 900; 
+            padding: 4px 7px;
+            border-radius: 4px;
+            margin-left: 12px;
+            /* RGB wave effect kept */
+            background: linear-gradient(45deg, #FF0000, #FFFF00, #00FF00, #00FFFF, #0000FF, #FF00FF);
+            background-size: 300% 300%; 
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: rgb-wave 3s linear infinite; 
+            border: 1px solid rgba(0, 0, 0, 0.1); /* Border color changed for Neumorphic look */
+        }
+        
+        /* ------------------------------------- */
+        /* ** मोबाइल एडजस्टमेंट (Responsive) ** */
+        /* ------------------------------------- */
+        @media (max-width: 768px) {
+            /* FAB Mobile: Moved to bottom right corner */
+            .new-fab-container {
+                right: 10px;
+                bottom: 10px; 
+                top: unset; 
+                transform: none; 
+                flex-direction: column-reverse; 
+                align-items: flex-end; 
+                animation: none;
+            }
+            .new-fab-container::after {
+                /* Remove pulsing ring on small screens for better performance */
+                content: none;
+            }
+            .fab-text {
+                left: unset;
+                right: 0; 
+                transform: none;
+                margin-bottom: 8px; 
+                width: 250px;
+                border-left: none;
+                border-right: 5px solid var(--accent-color); 
+            }
+            .new-fab-button {
+                width: 150px;
+                height: 50px;
+                font-size: 14px;
+            }
+        }
+        
+        /* ... (other previous styles retained for remaining sections) ... */
+        .shayeri-card { width: 100%; max-width: 600px; padding: 25px; background-color: white; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.15); border-top: 5px solid #ff9800; }
+        .story-button-container { padding: 20px 20px 40px 20px; text-align: center; background-color: var(--bg-light); }
+        .story-button { display: inline-block; color: white; padding: 12px 20px; border-radius: 30px; font-size: 15px; font-weight: bold; text-decoration: none; box-shadow: 0 4px 8px rgba(0,0,0,0.1); transition: background-color 0.3s, transform 0.2s; margin: 5px; }
+        .story-button.green { background-color: #4CAF50; border: 2px solid #388E3C; }
+        .story-button.pink { background-color: #e91e63; border: 2px solid #ad1457; }
+        .story-button.blue { background-color: var(--primary-color); border: 2px solid #1a237e; }
+        .guide-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); z-index: 9999; display: none; }
     </style>
 </head>
-<body style="font-family: Arial, sans-serif; margin: 0; background-color: var(--bg-light, #f4f4f9);">
+<body style="font-family: 'Poppins', sans-serif; margin: 0; background-color: var(--bg-light);">
 
-    <header style="background-color: var(--secondary-color, #c5cae9); 
-                   color: var(--primary-color, #303f9f); 
-                   padding: 10px 20px 15px 20px; 
-                   box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
-                   margin-bottom: 10px; 
-                   display: flex; 
-                   flex-direction: column; 
-                   align-items: center; 
-                   ">
-        <div class="header-top" style="display: flex; 
-                    justify-content: space-between; 
-                    align-items: center; 
-                    width: 100%; 
-                    margin-bottom: 5px; 
-                    ">
-            
-            <div class="header-info" style="font-size: 13px; 
-                        font-weight: bold; 
-                        white-space: nowrap; 
-                        margin-right: 10px;
-                        color: var(--primary-color);">
-                वेब डेवलपर शेख साहिबान
+    <header>
+        <div class="header-top">
+            <div class="header-title-area">
+                <h1 id="guideStep1"><span style="color: var(--accent-color); margin-right: 5px;">🔔</span> NoticeGuru</h1>
+                <p>मैट्रिक से 12वीं तक: सूचना, प्रेरणा और करियर गाइडेंस</p>
             </div>
-
-            <form class="search-container" style="flex-grow: 1; 
-                        max-width: 400px; 
-                        margin: 0 10px; 
-                        text-align: center;
-                        display: flex;"> 
-                <input type="search" 
-                       placeholder="नोटिस या वैकेंसी खोजें..." 
-                       style="width: 100%; 
-                              padding: 5px 12px; 
-                              border: 1px solid #7986cb; 
-                              border-radius: 20px 0 0 20px; 
-                              font-size: 13px; 
-                              outline: none; 
-                              box-shadow: 0 2px 4px rgba(0,0,0,0.1) inset;
-                              color: var(--primary-color);">
-                <button type="submit" style="background-color: var(--primary-color);
-                                             color: white;
-                                             border: none;
-                                             padding: 5px 10px;
-                                             border-radius: 0 20px 20px 0;
-                                             font-size: 13px;
-                                             cursor: pointer;">🔍</button>
+            
+            <form class="search-container"> 
+                <input type="search" placeholder="नोटिस या वैकेंसी खोजें..." style="color: #333;">
+                <button type="submit">🔍</button>
             </form>
 
-            <a href="https://youtube.com/shorts/JsixLO5DXS8?si=LbX8K1V7njxnphkG" 
+            <a href="YOUR_YOUTUBE_CHANNEL_LINK" 
                target="_blank" 
                class="header-youtube"
-               style="text-decoration: none; 
-                      color: var(--primary-color); 
-                      display: flex; 
-                      align-items: center; 
-                      font-size: 13px; 
-                      font-weight: bold; 
-                      white-space: nowrap;
-                      margin-left: 10px;">
-                
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="red" xmlns="http://www.w3.org/2000/svg">
+               style="text-decoration: none;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="red" xmlns="http://www.w3.org/2000/svg" style="margin-right: 5px;">
                     <path d="M21.5816 7.34568C21.3653 6.55933 20.7303 5.92433 19.9439 5.708C18.2173 5.23233 12 5.23233 12 5.23233C12 5.23233 5.78267 5.23233 4.05602 5.708C3.26967 5.92433 2.63467 6.55933 2.41832 7.34568C1.94267 9.07233 1.94267 12 1.94267 12C1.94267 12 1.94267 14.9277 2.41832 16.6543C2.63467 17.4407 3.26967 18.0757 4.05602 18.292C5.78267 18.7677 12 18.7677 12 18.7677C12 18.7677 18.2173 18.7677 19.9439 18.292C20.7303 18.0757 21.3653 17.4407 21.5816 16.6543C22.0573 14.9277 22.0573 12 22.0573 12C22.0573 12 22.0573 9.07233 21.5816 7.34568ZM9.85732 15.3457V8.65433L15.4287 12L9.85732 15.3457Z" fill="red"/>
                 </svg>
-                <span style="margin-left: 5px;">YouTube</span>
+                YouTube
             </a>
+            
+            <div class="header-info" style="font-weight: 600; color: var(--secondary-color); margin-left: 20px;">
+                वेब डेवलपर शेख साहिबान
+            </div>
         </div>
-
-        <h1 style="margin: 5px 0 2px 0; 
-                   font-size: 28px; 
-                   text-align: center; 
-                   color: var(--primary-color);">
-                   🔔 NoticeGuru (नोटिस गुरु)</h1>
-        
-        <p style="margin: 0; 
-                  font-size: 14px; 
-                  text-align: center; 
-                  color: var(--primary-color);">मैट्रिक से 12वीं तक: सूचना, प्रेरणा और करियर गाइडेंस</p>
     </header>
     
-    <button id="startGuideBtn" 
-            style="position: fixed; 
-                   bottom: 20px; 
-                   right: 20px; 
-                   background-color: var(--primary-color); 
-                   color: white; 
-                   border: none; 
-                   padding: 15px; 
-                   border-radius: 50%; 
-                   font-size: 16px; 
-                   font-weight: bold;
-                   cursor: pointer; 
-                   box-shadow: 0 4px 8px rgba(0,0,0,0.4); 
-                   z-index: 999; 
-                   transition: background-color 0.3s;">
-        💡 गाइड
-    </button>
-
-    <div class="guide-overlay" id="guideOverlay"></div>
-    <section style="background-color: var(--secondary-color); 
-                    padding: 15px 20px; 
-                    text-align: center; 
-                    border-bottom: 5px solid var(--accent-color);">
-        <h2 style="color: var(--primary-color); 
-                   font-size: 22px; 
-                   margin: 5px 0 10px 0;">लेटेस्ट नोटिस और सरकारी वैकेंसी यहाँ देखें!</h2>
-        <a href="#latest-govt-vacancies" 
-           style="background-color: var(--accent-color); 
-                  color: white; 
-                  padding: 8px 20px; 
-                  border: none; 
-                  border-radius: 25px; 
-                  font-size: 15px; 
-                  cursor: pointer; 
-                  font-weight: bold;
-                  text-decoration: none; 
-                  display: inline-block; 
-                  transition: background-color 0.3s;">लेटेस्ट अपडेट के लिए क्लिक करें</a>
+    <section class="hero-section" id="guideStep2">
+        <h2>🔥 लेटेस्ट नोटिस और सरकारी वैकेंसी सबसे पहले पाएँ!</h2>
+        <p>अपनी परीक्षा, रिजल्ट, और करियर गाइडेंस से जुड़ी हर जानकारी एक जगह पर।</p>
+        <a href="#latest-govt-vacancies" class="hero-button" title="लेटेस्ट अपडेट के लिए क्लिक करें">
+            🚀 ताज़ा अपडेट्स देखें
+        </a>
     </section>
-    
-    <section style="padding: 40px 20px; text-align: left;">
-        <h2 style="color: #3f51b5; border-bottom: 3px solid var(--accent-color); padding-bottom: 10px; display: inline-block; text-align: center; font-size: 22px;">📚 ताज़ा स्कूल सूचनाएँ (कक्षा 1-12)</h2>
+
+    <section class="notice-section">
+        <h2 id="guideStep3">📚 ताज़ा स्कूल सूचनाएँ (कक्षा 1-12)</h2>
         
-        <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 15px;">
-            <div style="background-color: #e3f2fd; 
-                        padding: 15px; 
-                        border-radius: 8px; 
-                        box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
-                        width: 100%; 
-                        max-width: 550px; 
-                        margin: 0 auto 0 0; 
-                        text-align: left;
-                        border-left: 5px solid #1565c0;">
-                <h3 style="color: #1565c0; margin-bottom: 10px; border-bottom: 2px solid #1565c0;">बिहार बोर्ड (BSEB) अपडेट</h3>
-                <ul style="list-style-type: none; padding: 0; font-size: 15px;">
-                    <li style="margin-bottom: 7px; display: flex; align-items: center;"><span style="color: #4caf50; font-size: 18px; margin-right: 8px;">★</span> 12वीं परीक्षा फॉर्म: भरने की अंतिम तिथि।</li>
-                    <li style="margin-bottom: 7px; display: flex; align-items: center;"><span style="color: #4caf50; font-size: 18px; margin-right: 8px;">★</span> मैट्रिक डमी एडमिट कार्ड जारी।</li>
-                    <li style="margin-bottom: 7px; display: flex; align-items: center;"><span style="color: #4caf50; font-size: 18px; margin-right: 8px;">★</span> स्कॉलरशिप के लिए नया पोर्टल।</li>
+        <div class="notice-cards-container">
+            
+            <div class="notice-card card-bihar">
+                <h3>बिहार बोर्ड (BSEB) अपडेट</h3>
+                <ul>
+                    <li>12वीं परीक्षा फॉर्म: भरने की अंतिम तिथि।</li>
+                    <li>मैट्रिक डमी एडमिट कार्ड जारी।</li>
+                    <li>स्कॉलरशिप के लिए नया पोर्टल।</li>
                 </ul>
             </div>
-            <div style="background-color: #fffde7; 
-                        padding: 15px; 
-                        border-radius: 8px; 
-                        box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
-                        width: 100%; 
-                        max-width: 550px; 
-                        margin: 0 auto 0 0; 
-                        text-align: left;
-                        border-left: 5px solid #fbc02d;">
-                <h3 style="color: #fbc02d; margin-bottom: 10px; border-bottom: 2px solid #fbc02d;">उत्तर प्रदेश बोर्ड (UP Board)</h3>
-                <ul style="list-style-type: none; padding: 0; font-size: 15px;">
-                    <li style="margin-bottom: 7px; display: flex; align-items: center;"><span style="color: #fbc02d; font-size: 18px; margin-right: 8px;">★</span> 10वीं/12वीं मॉडल पेपर डाउनलोड करें।</li>
-                    <li style="margin-bottom: 7px; display: flex; align-items: center;"><span style="color: #fbc02d; font-size: 18px; margin-right: 8px;">★</span> प्री-बोर्ड परीक्षा का नया शेड्यूल।</li>
-                    <li style="margin-bottom: 7px; display: flex; align-items: center;"><span style="color: #fbc02d; font-size: 18px; margin-right: 8px;">★</span> सरकारी स्कूल खुलने का नया समय।</li>
+            
+            <div class="notice-card card-up">
+                <h3>उत्तर प्रदेश बोर्ड (UP Board)</h3>
+                <ul>
+                    <li>10वीं/12वीं मॉडल पेपर डाउनलोड करें।</li>
+                    <li>प्री-बोर्ड परीक्षा का नया शेड्यूल।</li>
+                    <li>सरकारी स्कूल खुलने का नया समय।</li>
                 </ul>
             </div>
-            <div style="background-color: #e8f5e9; 
-                        padding: 15px; 
-                        border-radius: 8px; 
-                        box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
-                        width: 100%; 
-                        max-width: 550px; 
-                        margin: 0 auto 0 0; 
-                        text-align: left;
-                        border-left: 5px solid #2e7d32;">
-                <h3 style="color: #2e7d32; margin-bottom: 10px; border-bottom: 2px solid #2e7d32;">CBSE / अन्य महत्वपूर्ण</h3>
-                <ul style="list-style-type: none; padding: 0; font-size: 14px;">
-                    <li style="margin-bottom: 5px;">✅ CBSE परीक्षा केंद्र सूची जारी।</li>
-                    <li style="margin-bottom: 5px;">✅ राष्ट्रीय छात्रवृत्ति आवेदन शुरू।</li>
-                    <li style="margin-bottom: 5px;">✅ स्कूल शिक्षा से संबंधित नोटिस।</li>
+            
+            <div class="notice-card card-cbse">
+                <h3>CBSE / अन्य महत्वपूर्ण</h3>
+                <ul>
+                    <li>CBSE परीक्षा केंद्र सूची जारी।</li>
+                    <li>राष्ट्रीय छात्रवृत्ति आवेदन शुरू।</li>
+                    <li>स्कूल शिक्षा से संबंधित नोटिस।</li>
                 </ul>
             </div>
         </div>
-        <a href="#" style="color: #3f51b5; margin-top: 15px; display: block; text-decoration: none; font-weight: bold;">सभी बोर्ड नोटिस देखें →</a>
+        <a href="#" style="color: var(--primary-color); margin-top: 15px; display: block; text-decoration: none; font-weight: bold;">सभी बोर्ड नोटिस देखें →</a>
     </section>
-
+    
+    <hr>
+    
     <section id="latest-govt-vacancies" 
-             style="background-color: #e8f5e9; padding: 40px 20px; text-align: center; border-top: 3px solid #4caf50;">
+             style="background-color: var(--bg-dark); padding: 40px 20px; text-align: center; border-top: 3px solid #4CAF50;">
         <h2 style="color: #2e7d32; border-bottom: 3px solid #2e7d32; padding-bottom: 10px; display: inline-block; font-size: 22px;">💼 लेटेस्ट सरकारी वैकेंसी</h2>
         <ul style="list-style-type: none; padding: 0; margin-top: 20px;">
             <a href="#upsc-nda-details" style="text-decoration: none;">
@@ -339,10 +464,10 @@
             </a>
             <li style="background-color: white; padding: 12px; margin-bottom: 10px; border-radius: 8px; text-align: left; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center;">
                 <span style="font-weight: bold;">SSC CHSL 10+2 भर्ती</span> 
-                <span style="color: #4caf50; font-size: 13px; background-color: #e8f5e9; padding: 4px 8px; border-radius: 15px;">(आवेदन शुरू)</span>
+                <span style="color: #4CAF50; font-size: 13px; background-color: #e8f5e9; padding: 4px 8px; border-radius: 15px;">(आवेदन शुरू)</span>
             </li>
         </ul>
-        <a href="#" style="color: #3f51b5; margin-top: 15px; display: block; text-decoration: none; font-weight: bold;">सभी वैकेंसी देखें →</a>
+        <a href="#" style="color: var(--primary-color); margin-top: 15px; display: block; text-decoration: none; font-weight: bold;">सभी वैकेंसी देखें →</a>
     </section>
 
     <section id="upsc-nda-details" 
@@ -428,7 +553,7 @@
             <div style="width: 100%; max-width: 45%; min-width: 300px; padding: 20px; background-color: white; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
                 <h3 style="color: #e91e63; margin-top: 0;">▶️ वीडियो ट्यूटोरियल्स</h3>
                 <div style="background-color: #eee; padding: 40px 10px; border-radius: 5px; text-align: center; margin-bottom: 10px;">
-                    <p style="color: #666; margin: 0;">[https://youtube.com/shorts/JsixLO5DXS8?si=LbX8K1V7njxnphkG]</p>
+                    <p style="color: #666; margin: 0;">[यहां आपके YouTube वीडियो का एम्बेडेड कोड डालें]</p>
                 </div>
                 <a href="#" style="color: #e91e63; display: block; text-decoration: none; font-weight: bold;">हमारे चैनल पर जाएँ</a>
             </div>
@@ -438,7 +563,7 @@
     <section style="background-color: #fffde7; padding: 30px 20px; text-align: center; border-bottom: 3px solid #fbc02d;">
         <h2 style="color: #fbc02d; font-size: 22px; border-bottom: 3px solid #fbc02d; padding-bottom: 10px; display: inline-block;">📝 प्रेरक शायरी</h2>
         <div style="display: flex; justify-content: center; margin-top: 20px;">
-            <div class="shayeri-card" style="width: 100%; max-width: 600px; padding: 25px; background-color: white; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.15); border-top: 5px solid #ff9800;">
+            <div class="shayeri-card">
                 <p style="font-size: 18px; line-height: 1.6; color: #333; margin: 0; font-style: italic;">
                     <span id="shayeri-text"></span>
                 </p>
@@ -468,77 +593,110 @@
         <p style="margin-top: 0;"><a href="#" style="color: var(--accent-color); text-decoration: none; margin: 0 10px;">गोपनीयता नीति</a> | <a href="#" style="color: var(--accent-color); text-decoration: none; margin: 0 10px;">हमसे संपर्क करें</a></p>
     </footer>
 
+    <button id="startGuideBtn" 
+            style="position: fixed; 
+                   bottom: 20px; 
+                   right: 20px; 
+                   background-color: var(--primary-color); 
+                   color: white; 
+                   border: none; 
+                   padding: 15px; 
+                   border-radius: 50%; 
+                   font-size: 16px; 
+                   font-weight: bold;
+                   cursor: pointer; 
+                   box-shadow: 0 4px 8px rgba(0,0,0,0.4); 
+                   z-index: 999; 
+                   transition: background-color 0.3s;">
+        💡 गाइड
+    </button>
+    <div class="guide-overlay" id="guideOverlay"></div>
+    
+    <div class="new-fab-container">
+        
+        <div class="fab-text" id="fab-floating-text">
+            </div>
+
+        <a href="https://sahiban-sys.github.io/Adhyayan-Guide/" target="_blank" class="new-fab-button" title="गहरे अध्ययन के लिए क्लिक करें!">
+            <span id="fab-emoji">👉</span> 
+            Adhyayan Guide 
+            <span class="new-label">NEW</span>
+        </a>
+    </div>
+
     <script>
         const shayeriList = [
-            // 88+ शायरियों की सूची यहां है... (लंबाई के कारण, मैंने इसे छोटा कर दिया है, लेकिन आपके पिछले कोड से 88 शायरियां बरकरार हैं)
-            // आपके पिछले कोड में जोड़ी गई सभी 88+ शायरियां यहां मौजूद हैं।
+            // 88+ शायरियों की सूची यहां है... 
             { text: "नज़र को बदलो तो नज़ारे बदल जाते हैं, सोच को बदलो तो सितारे बदल जाते हैं। कश्तियाँ बदलने की ज़रूरत नहीं, मेरे दोस्त, दिशा को बदलो तो किनारे खुद-ब-खुद बदल जाते हैं।", author: "अज्ञात" },
             { text: "जब तक न सफल हो नींद चैन को त्यागो तुम, संघर्ष का मैदान छोड़ कर मत भागो तुम। कुछ किए बिना ही जय जय कार नहीं होती, कोशिश करने वालों की कभी हार नहीं होती।", author: "सोहन लाल द्विवेदी" },
             { text: "मंज़िलें उन्हीं को मिलती हैं जिनके सपनों में जान होती है, पंखों से कुछ नहीं होता, हौसलों से उड़ान होती है।", author: "अज्ञात" },
             { text: "सिर्फ़ हंगामा खड़ा करना मेरा मक़्सद नहीं, मेरी कोशिश है कि ये सूरत बदलनी चाहिए। मेरे सीने में नहीं तो तेरे सीने में सही, हो कहीं भी आग, लेकिन आग जलनी चाहिए।", author: "दुष्यंत कुमार" },
             { text: "माना अंधेरा घना है, लेकिन दीया जलाना कहाँ मना है।", author: "अटल बिहारी वाजपेयी" },
-            // ... (बाकी 80+ शायरियाँ)
         ];
 
         function displayRandomShayeri() {
-            const randomIndex = Math.floor(Math.random() * shayeriList.length);
-            const selectedShayeri = shayeriList[randomIndex];
-            document.getElementById('shayeri-text').innerHTML = selectedShayeri.text.replace(/, /g, ',<br>'); 
-            document.getElementById('shayeri-author').textContent = selectedShayeri.author;
+            const shayeriTextElement = document.getElementById('shayeri-text');
+            const shayeriAuthorElement = document.getElementById('shayeri-author');
+
+            if (shayeriTextElement && shayeriAuthorElement) {
+                const randomIndex = Math.floor(Math.random() * shayeriList.length);
+                const selectedShayeri = shayeriList[randomIndex];
+                shayeriTextElement.innerHTML = selectedShayeri.text.replace(/, /g, ',<br>'); 
+                shayeriAuthorElement.textContent = selectedShayeri.author;
+            }
             
             // ** ऑटो-स्टार्ट गाइड लॉजिक **
             const hasVisited = localStorage.getItem('noticeGuruVisited');
-            if (!hasVisited) {
-                // यह पहली बार विज़िटर है, गाइड शुरू करें
+            if (!hasVisited && typeof startGuide === 'function') {
                 startGuide();
-                // विज़िट को लोकल स्टोरेज में सेट करें
                 localStorage.setItem('noticeGuruVisited', 'true');
             }
         }
-        window.onload = displayRandomShayeri;
         
-        /* ** टूर गाइड JavaScript ** */
+        /* ** FAB JavaScript लॉजिक ** */
+        const fabEmojiElement = document.getElementById('fab-emoji');
+        const fabTextElement = document.getElementById('fab-floating-text');
         
-        // **वेबसाइट टूर गाइड लॉजिक**
+        // ** आकर्षण वाला नया टेक्स्ट **
+        const customText = "🚨 **अभी क्लिक करें!** शेख साहिबान का नया प्रॉजेक्ट, यह वेबसाइट **आपको जानना** ज़रूरी है।";
+        const emojiList = ["👉", "🤩", "😜", "🎯", "🤙", "🔥", "👆"];
+        let emojiIndex = 0;
+        
+        if(fabTextElement) {
+            fabTextElement.innerHTML = customText;
+        }
 
-        const guideSteps = [
-            { 
-                id: 'guideStep1', 
-                selector: '.header-top', // डेवलपर, सर्च और यूट्यूब
-                message: '👋 नमस्ते! यह NoticeGuru का मुख्य हेडर है। यहाँ से आप नोटिस **खोज** सकते हैं और हमारे **YouTube चैनल** पर जा सकते हैं।' 
-            },
-            { 
-                id: 'guideStep2', 
-                selector: 'section:nth-child(2) h2', // ताज़ा स्कूल सूचनाएँ
-                message: '📚 यह सेक्शन **बिहार/UP बोर्ड** और **CBSE** से संबंधित सभी **ताज़ा स्कूल सूचनाएँ** दिखाता है (जैसे परीक्षा फॉर्म, एडमिट कार्ड)।' 
-            },
-            { 
-                id: 'guideStep3', 
-                selector: '#latest-govt-vacancies', // वैकेंसी सेक्शन
-                message: '💼 यह सबसे महत्वपूर्ण है! यहाँ पर आपको 12वीं पास छात्रों के लिए **लेटेस्ट सरकारी नौकरियों (वैकेंसी)** की जानकारी मिलेगी। (जैसे NDA/SSC CHSL)' 
-            },
-            { 
-                id: 'guideStep4', 
-                selector: '#upsc-nda-details h2', // NDA विस्तृत जानकारी
-                message: '⭐ बड़ी भर्तियों की **विस्तृत योग्यता, तिथि और आवेदन प्रक्रिया** यहाँ विस्तार से दी गई है।' 
-            },
-            { 
-                id: 'guideStep5', 
-                selector: '.shayeri-card', // शायरी सेक्शन
-                message: '📝 पढ़ाई के बीच मोटिवेशन ज़रूरी है। यह कार्ड हर बार पेज लोड होने पर एक **नई प्रेरक शायरी** दिखाता है!' 
-            },
-            { 
-                id: 'guideStep6', 
-                selector: '.story-button-container', // नीचे के तीन बटन
-                message: '📚 अंत में, ये तीन बटन आपको **NCERT पढ़ने, मजेदार शायरी** और **मोटिवेशनल कंटेंट** तक पहुँचाते हैं।' 
+        function changeFabEmoji() {
+            if(fabEmojiElement) {
+                fabEmojiElement.style.transform = 'scale(0.7) rotate(15deg)';
+                setTimeout(() => {
+                    fabEmojiElement.textContent = emojiList[emojiIndex];
+                    fabEmojiElement.style.transform = 'scale(1) rotate(0deg)';
+                    emojiIndex = (emojiIndex + 1) % emojiList.length; 
+                }, 200); 
             }
+        }
+        
+        setInterval(changeFabEmoji, 2000); 
+        
+        /* ** टूर गाइड JavaScript (Function definitions for smooth operation) ** */
+        const guideSteps = [
+            { id: 'guideStep1', selector: '.header-title-area', message: '👋 नमस्ते! यह NoticeGuru का मुख्य हेडर है। यहाँ से आप नोटिस **खोज** सकते हैं और हमारे **YouTube चैनल** पर जा सकते हैं।' },
+            { id: 'guideStep2', selector: '.hero-section h2', message: '⭐ यह **हीरो सेक्शन** है! यहाँ आपको सबसे महत्वपूर्ण कॉल-टू-एक्शन मिलेगा। इस बटन पर क्लिक करके ताज़ा अपडेट्स देखें।' },
+            { id: 'guideStep3', selector: '.notice-section h2', message: '📚 यह सेक्शन **बिहार/UP बोर्ड** और **CBSE** से संबंधित सभी **ताज़ा स्कूल सूचनाएँ** दिखाता है (जैसे परीक्षा फॉर्म, एडमिट कार्ड)।' },
+            { id: 'guideStep4', selector: '#latest-govt-vacancies', message: '💼 यह सबसे महत्वपूर्ण है! यहाँ पर आपको 12वीं पास छात्रों के लिए **लेटेस्ट सरकारी नौकरियों (वैकेंसी)** की जानकारी मिलेगी। (जैसे NDA/SSC CHSL)' },
+            { id: 'guideStep5', selector: '.shayeri-card', message: '📝 पढ़ाई के बीच मोटिवेशन ज़रूरी है। यह कार्ड हर बार पेज लोड होने पर एक **नई प्रेरक शायरी** दिखाता है!' },
+            { id: 'guideStep6', selector: '.story-button-container', message: '📚 अंत में, ये तीन बटन आपको **NCERT पढ़ने, मजेदार शायरी** और **मोटिवेशनल कंटेंट** तक पहुँचाते हैं।' }
         ];
 
         let currentStep = 0;
         const startGuideBtn = document.getElementById('startGuideBtn');
         const guideOverlay = document.getElementById('guideOverlay');
+        const guideTooltipStyle = `background-color: white; color: var(--primary-color); padding: 15px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); max-width: 300px; font-size: 15px; text-align: left; z-index: 10000;`;
+        const guideButtonPrimaryStyle = `background-color: var(--accent-color); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; margin-top: 10px; font-weight: bold; transition: background-color 0.3s;`;
+        const guideButtonSkipStyle = `background-color: var(--secondary-color); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; margin-top: 10px; font-weight: bold; margin-left: 10px;`;
 
-        // अगर बटन मौजूद है, तो मैन्युअल स्टार्टर को चालू करें
+
         if(startGuideBtn){
             startGuideBtn.addEventListener('click', () => {
                 currentStep = 0; 
@@ -548,8 +706,10 @@
 
 
         function startGuide() {
-            guideOverlay.style.display = 'block';
-            showStep(currentStep);
+            if(guideOverlay) {
+                guideOverlay.style.display = 'block';
+                showStep(currentStep);
+            }
         }
 
         function showStep(index) {
@@ -562,48 +722,42 @@
             const targetElement = document.querySelector(step.selector);
 
             if (targetElement) {
-                // पुराने हाइलाइट और टूलटिप को हटाएँ
                 document.querySelectorAll('.highlight').forEach(el => el.classList.remove('highlight'));
                 document.querySelectorAll('.guide-tooltip').forEach(el => el.remove());
 
-                // नया तत्व हाइलाइट करें
                 targetElement.classList.add('highlight');
-                
-                // तत्व को स्क्रीन पर लाएँ
                 targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-                // टूलटिप बनाएँ
                 const tooltip = document.createElement('div');
                 tooltip.className = 'guide-tooltip';
-                
-                let buttonText = (index === guideSteps.length - 1) ? 'समाप्त करें (End)' : 'अगला स्टेप (Next)';
-                let buttonAction = (index === guideSteps.length - 1) ? 'endGuide()' : 'nextStep()';
+                tooltip.style.cssText = guideTooltipStyle;
 
-                // स्किप बटन के साथ HTML
+                let buttonText = (index === guideSteps.length - 1) ? 'समाप्त करें (End)' : 'अगला स्टेप (Next)';
+
                 tooltip.innerHTML = `
                     <p style="margin: 0; font-weight: bold;">स्टेप ${index + 1} / ${guideSteps.length}</p>
                     <p>${step.message}</p>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
-                        <button onclick="${buttonAction}">${buttonText}</button>
-                        <button onclick="endGuide()" style="background-color: #6c757d; color: white; margin-top: 0;">स्किप करें (Skip)</button>
+                    <div style="display: flex; justify-content: flex-start; align-items: center; margin-top: 10px;">
+                        <button onclick="nextStep()" style="${guideButtonPrimaryStyle}">${buttonText}</button>
+                        <button onclick="endGuide()" style="${guideButtonSkipStyle}">स्किप करें (Skip)</button>
                     </div>
                 `;
+                
+                if (index === guideSteps.length - 1) {
+                    tooltip.querySelector('button').onclick = endGuide;
+                }
 
                 document.body.appendChild(tooltip);
 
-                // टूलटिप को तत्व के पास रखें
                 const rect = targetElement.getBoundingClientRect();
                 
-                // टूलटिप की स्थिति तय करें
                 let topPos = rect.bottom + 15 + window.scrollY;
                 let leftPos = rect.left + (rect.width / 2) - (tooltip.offsetWidth / 2);
 
-                // यदि टूलटिप स्क्रीन के नीचे जा रहा है, तो ऊपर रखें
                 if (rect.bottom + tooltip.offsetHeight > window.innerHeight) {
                      topPos = rect.top - tooltip.offsetHeight - 15 + window.scrollY;
                 }
                 
-                // स्क्रीन के किनारे से बाहर जाने से रोकें
                 if (leftPos < 10 + window.scrollX) leftPos = 10 + window.scrollX;
                 if (leftPos + tooltip.offsetWidth > window.innerWidth - 10 + window.scrollX) {
                      leftPos = window.innerWidth - tooltip.offsetWidth - 10 + window.scrollX;
@@ -621,13 +775,19 @@
         }
 
         function endGuide() {
-            guideOverlay.style.display = 'none';
+            if(guideOverlay) {
+                guideOverlay.style.display = 'none';
+            }
             document.querySelectorAll('.highlight').forEach(el => el.classList.remove('highlight'));
             document.querySelectorAll('.guide-tooltip').forEach(el => el.remove());
         }
-        /* ** टूर गाइड JavaScript समाप्त ** */
+        
+        
+        // सभी ज़रूरी फ़ंक्शन पेज लोड होने पर कॉल करें
+        window.onload = function() {
+            displayRandomShayeri();
+            changeFabEmoji();
+        };
     </script>
 </body>
-
 </html>
-
